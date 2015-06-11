@@ -1,0 +1,528 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <title>Virtual Calculator</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <link rev="made" href="http://www.arachnoid.com"/>
+    <meta http-equiv="Content-language" content="en"/>
+    <meta name="author" content="Paul Lutus"/>
+    <meta name="owner" content="Paul Lutus"/>
+    <meta name="description" content="Virtual Calculator &mdash; interactive JavaScript application"/>
+    <meta name="group" content="ARACH/DOWNLOAD"/>
+    <meta name="menuCat" content="JavaScript"/>
+    <meta name="keywords" content="calculator,performed,order,algebraic,packard,method,hewlett,virtual,solve,problems,precedence,operations"/>
+    <meta name="rating" content="General"/>
+    <meta name="ROBOTS" content="ALL"/>
+    <meta name="GENERATOR" content="Arachnophilia 2.1"/>
+    <meta name="FORMATTER" content="Arachnophilia 2.1"/>
+    <link rel="stylesheet" type="text/css" href="../styles/default.css"/>
+    <!--solve the random button size problem -->
+    <style type="text/css">
+input.button {
+ font-family:courier;
+ font-weight:bold;
+ }
+ input.calcval {
+ font-family:courier;
+ text-align:right;
+ }
+    </style>
+  </head>
+  <body bgcolor="#ffffff" text="#000000" link="#0080FF" vlink="#8080FF" alink="#FF0000">
+    <!-- SiteIndexBegin -->
+    <!-- Menus created by SiteGen, http://www.arachnoid.com/SiteGen -->
+    <table><tr><td><a href="../index.html">Home</a>&nbsp;|&nbsp;</td><td><a href="../freeware/index.html">Downloads</a>&nbsp;|&nbsp;</td><td>
+          <script type="text/javascript" language="JavaScript">
+            function toNewPage(t) { location.href = t.options[t.selectedIndex].value; }
+          </script>
+          <select onchange="toNewPage(this)" title="Open this list to choose a page">
+            <option value="../freeware/index.html">* A Note about Freeware</option>
+            <option value="../abouttime/index.html">* AboutTime Home Page</option>
+            <option value="../DataProspector/index.html">* DataProspector</option>
+            <option value="../NetworkControl/index.html">* NetworkControl</option>
+            <option value="worldclock.html">* New World Clock</option>
+            <option value="../SignalGen/index.html">* SignalGen Home Page</option>
+            <option value="../SiteGen/index.html">* SiteGen Web Site Indexer</option>
+            <option value="calc/index.html">ArachnoCalc 1.5 Home Page</option>
+            <option value="../buttoncontrol/index.html">CuteButtons 2.4 Home Page</option>
+            <option value="../tabcontrol/index.html">CuteTabs Home Page</option>
+            <option value="../easyterm/index.html">EasyTerm Home Page</option>
+            <option value="../easytuner/index.html">EasyTuner Home Page</option>
+            <option value="../ftpthing/index.html">FTPthing Home Page</option>
+            <option value="../fileprocessor/FileProcessorHelp.html">File Processor Help</option>
+            <option value="../fileprocessor/index.html">File Processor Home Page</option>
+            <option value="graphtutor/index.html">Graph Tutor 2.0 Home Page</option>
+            <option value="javacounter/index.html">JavaCounter 4.8 Home Page</option>
+            <option value="about_java.html">Notes for the Java / JavaScript Programs</option>
+            <option value="../outline/index.html">Outline Browser</option>
+            <option value="../DataProspector/php_pages.html">PHP Script Pages</option>
+            <option value="../php_writer/index.html">PHP Writer</option>
+            <option value="quickwatch.html">QuickWatch Check Format Converter</option>
+            <option value="../quoter/index.html">Quoter</option>
+            <option value="../SlideProjector/index.html">SlideProjector Home Page</option>
+            <option value="../tides/index.html">Tides Home Page</option>
+            <option value="calculator.html" selected="selected">Virtual Calculator</option>
+            <option value="worldclock_old.html">World Clock (old) v. 3.2</option>
+            <option value="../dbedit/index.html">dbEdit Home Page</option>
+          </select>
+    </td><td><a href="../tides/index.html"><img src="../images/leftarrow.png" border="0" alt="" title="Click for prior page"/></a></td><td><a href="worldclock_old.html"><img src="../images/rightarrow.png" border="0" alt="" title="Click for next page"/></a></td><td>&nbsp;<a href="../administration/submit.php" title="Recommend this page to friends"><img src="../images/addthis16.gif" style="border:0px;" alt=""/>&nbsp;&nbsp;Share This Page</a></td></tr></table>
+    <!-- SiteIndexEnd -->
+    <div align="center"><br/><br/><font color="#000000"><font size="6"><b><img src="graph.gif" align="bottom" width="40" height="40" alt=""/>&nbsp;Virtual
+      Calculator</b></font></font>
+      <br/><br/>-- <a href="../administration/index.html" title="Click for biography">P. Lutus</a> &mdash; <a href="../messages">Message Page</a> --
+    <br/><br/>&copy; Copyright 1996, <a href="../administration/index.html" title="Click for biography">P. Lutus</a><p></p></div>
+
+    <div align="center"><div class="purple_hline"></div></div><p></p>
+
+    <form method="post" name="calc" action="" >
+      <div align="center"><div align="center">
+          <table border="1" cellpadding="8" cellspacing="0" align="center" bgcolor="#ffffc0">
+            <tr>
+              <td>
+                <table align="center" cellpadding="0" cellspacing="0" border="0" bgcolor="#ffffcc">
+                  <tr>
+                    <td style="text-align:center;">T</td>
+                    <td style="text-align:center;"><div align="center"><input class="calcval" type="text" size="32" maxlength="256" name="t" value="0"/></div></td>
+                  </tr>
+                  <tr>
+                    <td style="text-align:center;">Z</td>
+                    <td style="text-align:center;"><div align="center"><input class="calcval" type="text" size="32" maxlength="256" name="z" value="0"/></div></td>
+                  </tr>
+                  <tr>
+                    <td style="text-align:center;">Y</td>
+                    <td style="text-align:center;"><div align="center"><input class="calcval" type="text" size="32" maxlength="256" name="y" value="0"/></div></td>
+                  </tr>
+                  <tr>
+                    <td style="text-align:center;">X</td>
+                    <td style="text-align:center;"><div align="center"><input class="calcval" type="text" size="32" maxlength="256" name="x" value="0" onfocus="f_manual_entry();"/></div><p></p></td>
+
+                  </tr>
+                  <tr><td colspan="2"><table border="1" cellpadding="0" cellspacing="0">
+                        <tr>
+                          <td style="text-align:center;"><input class="button" type="button" value=" % " onclick="f_pct();"/></td>
+                          <td style="text-align:center;"><input class="button" type="button" value=" Enter " onclick="f_enter();"/></td>
+                          <td style="text-align:center;"><input class="button" type="button" value=" CHS " onclick="f_chs();"/></td>
+                          <td style="text-align:center;"><input class="button" type="button" value=" EEX " onclick="f_eex();"/></td>
+                          <td style="text-align:center;"><input class="button" type="button" value=" Drop " onclick="f_drop();"/></td>
+                        </tr>
+                        <tr>
+                          <td style="text-align:center;"><input class="button" type="button" value=" Sqrt " onclick="f_sqrt();"/></td>
+                          <td style="text-align:center;"><input class="button" type="button" value=" 7 " onclick="f_num(7);"/></td>
+                          <td style="text-align:center;"><input class="button" type="button" value=" 8 " onclick="f_num(8);"/></td>
+                          <td style="text-align:center;"><input class="button" type="button" value=" 9 " onclick="f_num(9);"/></td>
+                          <td style="text-align:center;"><input class="button" type="button" value=" / " onclick="f_div();"/></td>
+                        </tr>
+                        <tr>
+                          <td style="text-align:center;"><input class="button" type="button" value=" x^2 " onclick="f_x_sqr();"/></td>
+                          <td style="text-align:center;"><input class="button" type="button" value=" 4 " onclick="f_num(4);"/></td>
+                          <td style="text-align:center;"><input class="button" type="button" value=" 5 " onclick="f_num(5);"/></td>
+                          <td style="text-align:center;"><input class="button" type="button" value=" 6 " onclick="f_num(6);"/></td>
+                          <td style="text-align:center;"><input class="button" type="button" value=" * " onclick="f_mult();"/></td>
+                        </tr>
+                        <tr>
+                          <td style="text-align:center;"><input class="button" type="button" value=" x <-/> y " onclick="f_x_swap_y();"/></td>
+                          <td style="text-align:center;"><input class="button" type="button" value=" 1 " onclick="f_num(1);"/></td>
+                          <td style="text-align:center;"><input class="button" type="button" value=" 2 " onclick="f_num(2);"/></td>
+                          <td style="text-align:center;"><input class="button" type="button" value=" 3 " onclick="f_num(3);"/></td>
+                          <td style="text-align:center;"><input class="button" type="button" value=" - " onclick="f_sub();"/></td>
+                        </tr>
+                        <tr>
+                          <td style="text-align:center;"><input class="button" type="button" value=" 1/x " onclick="f_inv_x();"/></td>
+                          <td style="text-align:center;"><input class="button" type="button" value=" 0 " onclick="f_num(0);"/></td>
+                          <td style="text-align:center;"><input class="button" type="button" value=" . " onclick="f_num('.');"/></td>
+                          <td style="text-align:center;"><input class="button" type="button" value=" Clear " onclick="f_clear();"/></td>
+                          <td style="text-align:center;"><input class="button" type="button" value=" + " onclick="f_add();"/></td>
+                        </tr>
+                        <tr>
+                          <td style="text-align:center;"><input class="button" type="button" value=" Sin " onclick="f_sin();"/></td>
+                          <td style="text-align:center;"><input class="button" type="button" value=" Cos " onclick="f_cos();"/></td>
+                          <td style="text-align:center;"><input class="button" type="button" value=" Tan " onclick="f_tan();"/></td>
+                          <td style="text-align:center;"><input type="radio" checked="checked" name="degrad" onclick="f_degrad(1);"/>&nbsp;Degrees</td>
+                          <td style="text-align:center;"><input type="radio" name="degrad" onclick="f_degrad(0);"/>&nbsp;Radians</td>
+                        </tr>
+                        <tr>
+                          <td style="text-align:center;"><input class="button" type="button" value=" Sin-1 " onclick="f_asin();"/></td>
+                          <td style="text-align:center;"><input class="button" type="button" value=" Cos-1 " onclick="f_acos();"/></td>
+                          <td style="text-align:center;"><input class="button" type="button" value=" Tan-1 " onclick="f_atan();"/></td>
+                          <td style="text-align:center;"><input class="button" type="button" value=" Ln " onclick="f_ln();"/></td>
+                          <td style="text-align:center;"><input class="button" type="button" value=" e^x " onclick="f_ex();"/></td>
+                        </tr>
+                        <tr>
+                          <td style="text-align:center;"><input class="button" type="button" value=" x! " onclick="f_fact();"/></td>
+                          <td style="text-align:center;"><input class="button" type="button" value=" y^x " onclick="f_y_pwr_x();"/></td>
+                          <td style="text-align:center;"><input class="button" type="button" value=" y^1/x " onclick="f_y_root_x();"/></td>
+                          <td style="text-align:center;"><input class="button" type="button" value=" Log " onclick="f_log();"/></td>
+                          <td style="text-align:center;"><input class="button" type="button" value=" 10^x " onclick="f_tenx();"/></td>
+                        </tr>
+                      </table>
+                    </td>
+                  </tr>
+                </table>
+              </td>
+            </tr>
+          </table>
+      </div></div>
+    </form>
+    <br/><br/><br/>
+    <br/>
+    <div align="center"><div align="center">
+        <table border="1" cellpadding="10" width="95%" align="center">
+          <tr>
+            <td><font color="#000000"><font size="4"><b>RPN
+                Calculators &mdash; the Short Version</b></font><br/>
+                <br/>
+                RPN stands for &quot;Reverse Polish Notation,&quot; a
+                parenthesis-free method for performing calculations. In
+                the United States this method has been popularized by the <a href="http://www.hp.com">Hewlett-Packard Corporation</a><sup>1</sup>,
+                which sells a line of RPN calculators. The method depends
+                on a stack of values as its organizing principle. When a
+                number is entered, the previous entry is
+                &quot;raised&quot; in the stack, so that several values
+                can be stored. When a mathematical operation is
+                performed, it is performed on the most recent value (or
+                values, if more than one is required).
+                <br/><br/>For example, to divide 80 by 81, you make these
+                entries:
+                <br/><br/>80<br/>
+                [Enter]<br/>
+                81<br/>
+                /
+                <br/><br/>At first, this method may seem cumbersome, but in time
+                one begins to see its great value &mdash; one need never worry
+                about algebraic order of precedence, because the order in
+                which operations are performed is entirely controlled by
+                the order in which the values are entered and the
+                operations performed.
+                <br/><br/>On some problems, the algebraic order of precedence
+                can be depended on to provide the correct result. But
+                many problems are difficult to state using the default
+                precedence. In this next example, you want to multiply
+                the result of two additions ((a + b ) * (c + d)). If you
+                simply enter this problem into an algebraic calculator,
+                you will get a + (b * c) + d, not (a + b) * (c + d), as
+                you expected, because multiplications are performed
+                before additions.
+                <br/><br/>In order to solve this problem on an algebraic
+                calculator, you must carefully place parentheses between
+                the operations (assuming your calculator has
+                parentheses). But in RPN notation, the problem is simple
+                to solve:
+                <br/><br/>a (vaue)<br/>
+                [Enter]<br/>
+                b (value)<br/>
+                +<br/>
+                c (value)<br/>
+                [Enter]<br/>
+                d (value)<br/>
+                +<br/>
+                *
+                <br/><br/>Once you begin to get a feel for RPN, you will realize
+                it is the easiest way to solve all but the simplest
+                problems. <i>You never have to press more keys than on an
+                algebraic calculator, and you often press far fewer.</i>
+                <br/><br/><a href="#top">Take Me Back to the
+                Virtual Calculator</a>
+            </font></td>
+          </tr>
+        </table>
+    </div></div>
+    <br/><br/><br/>
+    <br/>
+    <div align="center"><div align="center">
+        <table width="95%" align="center">
+          <tr>
+            <td><font color="#000000"><font size="2">(1) The name Hewlett-Packard is a
+                  registered trademark of Hewlett-Packard Corporation.
+                  Hewlett-Packard in no way endorses or is affiliated with
+            arachnoid.com. I just like their products.</font> </font></td>
+            <td></td>
+          </tr>
+        </table>
+    </div></div>
+    <br/><br/><br/>
+    <br/>
+    <div class="purple_hline"></div><br/>
+    <br/>
+    <h3 align="center"><a href="../index.html" target="_top">Main Page</a></h3>
+    <script language="JavaScript" type="text/javascript">
+// This script is (C) Copyright 1996, <a href="../administration/index.html" title="Click for biography">P. Lutus</a>, Ashland, Oregon --
+var keynum = 0;
+var degmode = 1; // Default trig entry mode is degrees
+var pi = 3.14159265358979323846; // Hey &mdash; you gotta have a good value for Pi, yes?
+var deg_rad = pi / 180; // Constants to convert between degrees and radians
+var rad_deg = 180 / pi;
+function pre_trig(x) {
+	if(degmode) {
+		x *= deg_rad;
+	}
+	keynum = 0;
+	return(x);
+}
+function post_inv_trig(x) {
+	if(degmode) {
+		x *= rad_deg;
+	}
+	keynum = 0;
+	return(x);
+}
+function f_degrad(x) {
+	degmode = x;
+}
+function f_num(n) {
+	if(keynum) {
+		// this next actually string-concatenates &mdash; a real gotcha
+		document.calc.x.value += n;
+	}
+	else {
+		f_enter();
+		document.calc.x.value = n;
+		keynum = 1;
+	}
+}
+function f_manual_entry() {
+	f_enter();
+	document.calc.x.value = "";
+	keynum = 0;
+}
+function f_clear() {
+	var i;
+	if(confirm("OK to clear all values?")) {
+		with (document.calc) {
+			t.value = 0;
+			z.value = 0;
+			y.value = 0;
+			x.value = 0;
+		}
+		keynum = 0;
+	}
+}
+function f_drop_y() {
+	with (document.calc) {
+		y.value = z.value;
+		z.value = t.value;
+	}
+	keynum = 0;
+}
+function f_drop() {
+	with (document.calc) {
+		x.value = y.value;
+		y.value = z.value;
+		z.value = t.value;
+	}
+	keynum = 0;
+}
+function f_enter() {
+	var i;
+	with(document.calc) {
+		if(keynum == 0) {
+			if(x.value == "") {
+				x.value = 0;
+			}
+			t.value = z.value;
+			z.value = y.value;
+			y.value = x.value;
+		}
+	}
+	keynum = 0;
+}
+function f_add() {
+	with (document.calc) {
+		x.value = parseFloat(y.value) + parseFloat(x.value);
+	}
+	f_drop_y();
+}
+function f_sub() {
+	with (document.calc) {
+		x.value = y.value - x.value;
+	}
+	f_drop_y();
+}
+function f_mult() {
+	with (document.calc) {
+		x.value = y.value * x.value;
+	}
+	f_drop_y();
+}
+function f_div() {
+	with (document.calc) {
+		if(x.value != 0) {
+			x.value = y.value / x.value;
+			f_drop_y();
+		}
+		else {
+			alert("Division by zero.");
+		}
+	}
+}
+function f_inv_x() {
+	with (document.calc) {
+		if(x.value != 0) {
+			x.value = 1 / x.value;
+			keynum = 0;
+		}
+		else {
+			alert("Division by zero.");
+		}
+	}
+}
+function f_x_swap_y () {
+	var q;
+	with(document.calc) {
+		q = parseFloat(x.value);
+		x.value = y.value;
+		y.value = q;
+	}
+	keynum = 0;
+}
+function f_x_sqr() {
+	with(document.calc) {
+		x.value = x.value * x.value;
+	}
+	keynum = 0;
+}
+function f_y_pwr_x() {
+	with(document.calc) {
+		x.value = Math.pow(y.value,x.value);
+		f_drop_y();
+	}
+}
+function f_y_root_x() {
+	with(document.calc) {
+		x.value = Math.pow(y.value,1/x.value);
+		f_drop_y();
+	}
+}
+function f_sqrt() {
+	with(document.calc) {
+		x.value = Math.sqrt(x.value);
+	}
+	keynum = 0;
+}
+function f_chs() {
+	with(document.calc) {
+		x.value = -x.value;
+	}
+	keynum = 0;
+}
+function f_eex() {
+	with(document.calc) {
+		x.value = y.value * Math.pow(10,x.value);
+	}
+	f_drop_y();
+}
+function f_pct() {
+	with(document.calc) {
+		x.value = y.value * (x.value/100);
+	}
+	keynum = 0;
+}
+function f_ln() {
+	with(document.calc) {
+		x.value = Math.log(x.value);
+	}
+	keynum = 0;
+}
+function f_ex() {
+	with(document.calc) {
+		x.value = Math.exp(x.value);
+	}
+	keynum = 0;
+}
+function f_sin() {
+	with(document.calc) {
+		x.value = Math.sin(pre_trig(x.value));
+	}
+	keynum = 0;
+}
+function f_cos() {
+	with(document.calc) {
+		x.value = Math.cos(pre_trig(x.value));
+	}
+	keynum = 0;
+}
+function f_tan() {
+	with(document.calc) {
+		x.value = Math.tan(pre_trig(x.value));
+	}
+	keynum = 0;
+}
+function f_asin() {
+	with(document.calc) {
+		x.value = post_inv_trig(Math.asin(x.value));
+	}
+	keynum = 0;
+}
+function f_acos() {
+	with(document.calc) {
+		x.value = post_inv_trig(Math.acos(x.value));
+	}
+	keynum = 0;
+}
+function f_atan() {
+	with(document.calc) {
+		x.value = post_inv_trig(Math.atan(x.value));
+	}
+	keynum = 0;
+}
+function f_fact() {
+	with(document.calc) {
+		var q = x.value;
+		var v = q;
+		while(--q > 0) {
+			v *= q;
+		}
+		x.value = v;
+	}
+	keynum = 0;
+}
+function f_log() {
+	with(document.calc) {
+		x.value = Math.log(x.value)/Math.LN10;
+	}
+	keynum = 0;
+}
+function f_tenx() {
+	with(document.calc) {
+		x.value = Math.pow(10,x.value);
+	}
+	keynum = 0;
+}
+    </script>
+    <!-- SiteIndexBegin -->
+    <!-- Menus created by SiteGen, http://www.arachnoid.com/SiteGen -->
+    <table><tr><td><a href="../index.html">Home</a>&nbsp;|&nbsp;</td><td><a href="../freeware/index.html">Downloads</a>&nbsp;|&nbsp;</td><td>
+          <select onchange="toNewPage(this)" title="Open this list to choose a page">
+            <option value="../freeware/index.html">* A Note about Freeware</option>
+            <option value="../abouttime/index.html">* AboutTime Home Page</option>
+            <option value="../DataProspector/index.html">* DataProspector</option>
+            <option value="../NetworkControl/index.html">* NetworkControl</option>
+            <option value="worldclock.html">* New World Clock</option>
+            <option value="../SignalGen/index.html">* SignalGen Home Page</option>
+            <option value="../SiteGen/index.html">* SiteGen Web Site Indexer</option>
+            <option value="calc/index.html">ArachnoCalc 1.5 Home Page</option>
+            <option value="../buttoncontrol/index.html">CuteButtons 2.4 Home Page</option>
+            <option value="../tabcontrol/index.html">CuteTabs Home Page</option>
+            <option value="../easyterm/index.html">EasyTerm Home Page</option>
+            <option value="../easytuner/index.html">EasyTuner Home Page</option>
+            <option value="../ftpthing/index.html">FTPthing Home Page</option>
+            <option value="../fileprocessor/FileProcessorHelp.html">File Processor Help</option>
+            <option value="../fileprocessor/index.html">File Processor Home Page</option>
+            <option value="graphtutor/index.html">Graph Tutor 2.0 Home Page</option>
+            <option value="javacounter/index.html">JavaCounter 4.8 Home Page</option>
+            <option value="about_java.html">Notes for the Java / JavaScript Programs</option>
+            <option value="../outline/index.html">Outline Browser</option>
+            <option value="../DataProspector/php_pages.html">PHP Script Pages</option>
+            <option value="../php_writer/index.html">PHP Writer</option>
+            <option value="quickwatch.html">QuickWatch Check Format Converter</option>
+            <option value="../quoter/index.html">Quoter</option>
+            <option value="../SlideProjector/index.html">SlideProjector Home Page</option>
+            <option value="../tides/index.html">Tides Home Page</option>
+            <option value="calculator.html" selected="selected">Virtual Calculator</option>
+            <option value="worldclock_old.html">World Clock (old) v. 3.2</option>
+            <option value="../dbedit/index.html">dbEdit Home Page</option>
+          </select>
+    </td><td><a href="../tides/index.html"><img src="../images/leftarrow.png" border="0" alt="" title="Click for prior page"/></a></td><td><a href="worldclock_old.html"><img src="../images/rightarrow.png" border="0" alt="" title="Click for next page"/></a></td><td>&nbsp;<a href="../administration/submit.php" title="Recommend this page to friends"><img src="../images/addthis16.gif" style="border:0px;" alt=""/>&nbsp;&nbsp;Share This Page</a></td></tr></table>
+    <!-- SiteIndexEnd -->
+  </body>
+</html>
