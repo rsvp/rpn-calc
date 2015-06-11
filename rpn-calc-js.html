@@ -6,7 +6,9 @@
 <meta name="description" content="RPN Calculator, Reverse Polish Notation, JavaScript application">
 <meta name="menuCat" content="JavaScript">
 <meta name="keywords" content="calculator,rpn, reverse polish notation">
-<meta name="ROBOTS" content="ALL">
+<meta name="ROBOTS" content="NOINDEX, NOFOLLOW">
+<meta name="ROBOTS" content="NOARCHIVE, NOSNIPPET">
+<meta name="ROBOTS" content="NOYDIR, NOODP">
 <!-- ================================================================== 
 
 Primary source:  http://www.arachnoid.com/lutusp/calculator.html
@@ -80,8 +82,8 @@ input.button {
 <td style="text-align: center;"><input class="button" value=" y 10^x " onclick="f_eex();" type="button"></td>
 <td style="text-align: center;"><input class="button" value=" Clear " onclick="f_clear();" type="button"></td>
 <td style="text-align: center;"><input class="button" value=" Drop " onclick="f_drop();" type="button"></td>
-<td style="text-align: center;"><input class="button" value=" CHS " onclick="f_chs();" type="button"></td>
 <td style="text-align: center;"><input class="button" value=" x &lt;&gt; y " onclick="f_x_swap_y();" type="button"></td>
+<td style="text-align: center;"><input class="button" value=" CHS " onclick="f_chs();" type="button"></td>
                         </tr>
                         <tr>
 <td style="text-align: center;"><input class="button" value=" y^x " onclick="f_y_pwr_x();" type="button"></td>
@@ -98,30 +100,36 @@ input.button {
 <td style="text-align: center;"><input class="button" value=" * " onclick="f_mult();" type="button"></td>
                         </tr>
                         <tr>
-<td style="text-align: center;"><input name="degrad" onclick="f_degrad(0);" type="radio">&nbsp;rad</td>
+<td style="text-align: center;"><input class="button" value=" 1/x " onclick="f_inv_x();" type="button"></td>
 <td style="text-align: center;"><input class="button" value=" 1 " onclick="f_num(1);" type="button"></td>
 <td style="text-align: center;"><input class="button" value=" 2 " onclick="f_num(2);" type="button"></td>
 <td style="text-align: center;"><input class="button" value=" 3 " onclick="f_num(3);" type="button"></td>
 <td style="text-align: center;"><input class="button" value=" - " onclick="f_sub();" type="button"></td>
                         </tr>
                         <tr>
-<td style="text-align: center;"><input checked="checked" name="degrad" onclick="f_degrad(1);" type="radio">&nbsp;deg</td>
+<td style="text-align: center;"><input class="button" value=" % " onclick="f_pct();" type="button"></td>
 <td style="text-align: center;"><input class="button" value=" 0 " onclick="f_num(0);" type="button"></td>
 <td style="text-align: center;"><input class="button" value=" . " onclick="f_num('.');" type="button"></td>
 <td style="text-align: center;"><input class="button" value=" ENTER " onclick="f_enter();" type="button"></td>
 <td style="text-align: center;"><input class="button" value=" + " onclick="f_add();" type="button"></td>
                         </tr>
 
-<tr><td></td></tr>
-<tr><td></td></tr>
-<tr><td></td></tr>
+<!-- buttons above are essential, but the buttons below are scientific -->
+<tr>
+<td bgcolor="gray">_______</td>
+<td bgcolor="gray">_______</td>
+<td bgcolor="gray">_______</td>
+<td bgcolor="gray">_______</td>
+<td bgcolor="gray">_______</td>
+</tr>
+<!-- one can elongate the display by lengthening the underscores -->
 
                         <tr>
 <td style="text-align: center;"><input class="button" value=" sin " onclick="f_sin();" type="button"></td>
 <td style="text-align: center;"><input class="button" value=" cos " onclick="f_cos();" type="button"></td>
 <td style="text-align: center;"><input class="button" value=" tan " onclick="f_tan();" type="button"></td>
-<td style="text-align: center;"><input class="button" value=" % " onclick="f_pct();" type="button"></td>
-<td style="text-align: center;"><input class="button" value=" 1/x " onclick="f_inv_x();" type="button"></td>
+<td style="text-align: center;"><input class="button" value=" sqrt " onclick="f_sqrt();" type="button"></td>
+<td style="text-align: center;"><input class="button" value=" x^2 " onclick="f_x_sqr();" type="button"></td>
                         </tr>
                         <tr>
 <td style="text-align: center;"><input class="button" value=" arcsin " onclick="f_asin();" type="button"></td>
@@ -131,9 +139,9 @@ input.button {
 <td style="text-align: center;"><input class="button" value=" e^x " onclick="f_ex();" type="button"></td>
                         </tr>
                         <tr>
+<td style="text-align: center;"><input checked="checked" name="degrad" onclick="f_degrad(1);" type="radio">&nbsp;deg</td>
+<td style="text-align: center;"><input name="degrad" onclick="f_degrad(0);" type="radio">&nbsp;rad</td>
 <td style="text-align: center;"><input class="button" value=" x! " onclick="f_fact();" type="button"></td>
-<td style="text-align: center;"><input class="button" value=" x^2 " onclick="f_x_sqr();" type="button"></td>
-<td style="text-align: center;"><input class="button" value=" sqrt " onclick="f_sqrt();" type="button"></td>
 <td style="text-align: center;"><input class="button" value=" Log " onclick="f_log();" type="button"></td>
 <td style="text-align: center;"><input class="button" value=" 10^x " onclick="f_tenx();" type="button"></td>
                         </tr>
