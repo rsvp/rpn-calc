@@ -2,7 +2,7 @@
 <title>RPN Calculator :: Reverse Polish Notation in Javascript</title>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <meta http-equiv="Content-language" content="en">
-<meta name="author" content="Paul Lutus, 1996 | Adriano, 2009">
+<meta name="author" content="Paul Lutus, 1996 | Adriano, 2009-">
 <meta name="description" content="RPN Calculator, Reverse Polish Notation, JavaScript application">
 <meta name="menuCat" content="JavaScript">
 <meta name="keywords" content="calculator,rpn, reverse polish notation">
@@ -11,17 +11,26 @@
 <meta name="ROBOTS" content="NOYDIR, NOODP">
 <!-- ================================================================== 
 
-Primary source:  http://www.arachnoid.com/lutusp/calculator.html
-Primary author:  Paul Lutus, 1996,      "Virtual Calculator"
-Revisions     :  Adriano, beginning 2009
+CHANGE LOG
+2015-06-11  v15.06  Clarify project history.
+                       Enhance ENTER and register areas by color.
+                       Use unicode to beautify some buttons.
+2015-06-10          Create GitHub repository:
+                       https://github.com/rsvp/rpn-calc
+2009-08-15  v9.08   Change ROBOTS heading.
+                       Improve button placements.
+2009-02-19  v9.02   Revised buttons and table codes.
+                       Lutus' EEX is not what HP expects. ;-)
+                       Modernized the look from over a decade ago.
+2009                Revisions solely by Adriano under BSD License.
+1996      v0.1996   Primary source, "Virtual Calculator" by Paul Lutus:
+                       http://www.arachnoid.com/lutusp/calculator.html
+                       Released as Freeware.
 
-2009-02-19  v9.02  Revised buttons and table codes.
-                   Lutus' EEX is not what HP expects. ;-)
-                   Modernized the look from over a decade ago.
+_______________ TODO
 
-_______________ BUGS
-
-- lack of rounding function (apparently javascript is deficient here ;-)
+[ ] - undo last operation would be nice to have.
+[ ] - lack of rounding function (apparently Javascript is deficient here ;-)
 
 ======================================================================= -->
 
@@ -31,10 +40,18 @@ input.button {
  font-family:arial;
  font-weight:bold;
  }
- input.calcval {
+input.enterbutton {
+ font-family:arial;
+ font-weight:bold;
+ color:white;
+ background:navy;
+ }
+input.calcval {
  font-family:courier;
  font-weight:bold;
+ font-size:121%;
  color:navy;
+ background:yellow;
  text-align:right;
  }
     </style>
@@ -82,7 +99,7 @@ input.button {
 <td style="text-align: center;"><input class="button" value=" y 10^x " onclick="f_eex();" type="button"></td>
 <td style="text-align: center;"><input class="button" value=" Clear " onclick="f_clear();" type="button"></td>
 <td style="text-align: center;"><input class="button" value=" Drop " onclick="f_drop();" type="button"></td>
-<td style="text-align: center;"><input class="button" value=" x &lt;&gt; y " onclick="f_x_swap_y();" type="button"></td>
+<td style="text-align: center;"><input class="button" value=" x ⬄ y " onclick="f_x_swap_y();" type="button"></td>
 <td style="text-align: center;"><input class="button" value=" CHS " onclick="f_chs();" type="button"></td>
                         </tr>
                         <tr>
@@ -90,27 +107,27 @@ input.button {
 <td style="text-align: center;"><input class="button" value=" 7 " onclick="f_num(7);" type="button"></td>
 <td style="text-align: center;"><input class="button" value=" 8 " onclick="f_num(8);" type="button"></td>
 <td style="text-align: center;"><input class="button" value=" 9 " onclick="f_num(9);" type="button"></td>
-<td style="text-align: center;"><input class="button" value=" / " onclick="f_div();" type="button"></td>
+<td style="text-align: center;"><input class="button" value=" ÷ " onclick="f_div();" type="button"></td>
                         </tr>
                         <tr>
 <td style="text-align: center;"><input class="button" value=" y^1/x " onclick="f_y_root_x();" type="button"></td>
 <td style="text-align: center;"><input class="button" value=" 4 " onclick="f_num(4);" type="button"></td>
 <td style="text-align: center;"><input class="button" value=" 5 " onclick="f_num(5);" type="button"></td>
 <td style="text-align: center;"><input class="button" value=" 6 " onclick="f_num(6);" type="button"></td>
-<td style="text-align: center;"><input class="button" value=" * " onclick="f_mult();" type="button"></td>
+<td style="text-align: center;"><input class="button" value=" 𝑥 " onclick="f_mult();" type="button"></td>
                         </tr>
                         <tr>
 <td style="text-align: center;"><input class="button" value=" 1/x " onclick="f_inv_x();" type="button"></td>
 <td style="text-align: center;"><input class="button" value=" 1 " onclick="f_num(1);" type="button"></td>
 <td style="text-align: center;"><input class="button" value=" 2 " onclick="f_num(2);" type="button"></td>
 <td style="text-align: center;"><input class="button" value=" 3 " onclick="f_num(3);" type="button"></td>
-<td style="text-align: center;"><input class="button" value=" - " onclick="f_sub();" type="button"></td>
+<td style="text-align: center;"><input class="button" value=" − " onclick="f_sub();" type="button"></td>
                         </tr>
                         <tr>
 <td style="text-align: center;"><input class="button" value=" % " onclick="f_pct();" type="button"></td>
 <td style="text-align: center;"><input class="button" value=" 0 " onclick="f_num(0);" type="button"></td>
 <td style="text-align: center;"><input class="button" value=" . " onclick="f_num('.');" type="button"></td>
-<td style="text-align: center;"><input class="button" value=" ENTER " onclick="f_enter();" type="button"></td>
+<td style="text-align: center;"><input class="enterbutton" value=" ENTER " onclick="f_enter();" type="button"></td>
 <td style="text-align: center;"><input class="button" value=" + " onclick="f_add();" type="button"></td>
                         </tr>
 
@@ -141,7 +158,7 @@ input.button {
                         <tr>
 <td style="text-align: center;"><input checked="checked" name="degrad" onclick="f_degrad(1);" type="radio">&nbsp;deg</td>
 <td style="text-align: center;"><input name="degrad" onclick="f_degrad(0);" type="radio">&nbsp;rad</td>
-<td style="text-align: center;"><input class="button" value=" x! " onclick="f_fact();" type="button"></td>
+<td style="text-align: center;"><input class="button" value=" x ! " onclick="f_fact();" type="button"></td>
 <td style="text-align: center;"><input class="button" value=" Log " onclick="f_log();" type="button"></td>
 <td style="text-align: center;"><input class="button" value=" 10^x " onclick="f_tenx();" type="button"></td>
                         </tr>
@@ -164,7 +181,10 @@ input.button {
   <div align="center"><br><br><font color="#000000"><font size="1">
 <b>RPN Calculator :: Reverse Polish Notation in Javascript</b></font></font>
 <br>© Copyright 1996 <a href="http://www.arachnoid.com/administration/index.html" 
-title="Click for biography"> Paul Lutus</a> [ through 2009, version 9.02 Adriano ]<p></p></div>
+title="Click for biography"> Paul Lutus</a>, 
+ 2009-2015 <a href="https://github.com/rsvp/rpn-calc" 
+title="Code repository"> Adriano</a>
+<p></p></div>
 
 
 
