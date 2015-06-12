@@ -1,0 +1,436 @@
+<html xmlns="http://www.w3.org/1999/xhtml"><head>
+<title>RPN Calculator :: Reverse Polish Notation in Javascript</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta http-equiv="Content-language" content="en">
+<meta name="author" content="Paul Lutus, 1996 | Adriano, 2009-">
+<meta name="description" content="RPN Calculator, Reverse Polish Notation, JavaScript application">
+<meta name="menuCat" content="JavaScript">
+<meta name="keywords" content="calculator,rpn, reverse polish notation">
+<meta name="ROBOTS" content="NOINDEX, NOFOLLOW">
+<meta name="ROBOTS" content="NOARCHIVE, NOSNIPPET">
+<meta name="ROBOTS" content="NOYDIR, NOODP">
+<!-- ================================================================== 
+
+CHANGE LOG
+2015-06-11  v15.06  Clarify project history.
+                       Enhance ENTER and register areas by color.
+                       Use unicode to beautify some buttons.
+2015-06-10          Create GitHub repository:
+                       https://github.com/rsvp/rpn-calc
+2009-08-15  v9.08   Change ROBOTS heading.
+                       Improve button placements.
+2009-02-19  v9.02   Revised buttons and table codes.
+                       Lutus' EEX is not what HP expects. ;-)
+                       Modernized the look from over a decade ago.
+2009                Revisions solely by Adriano under BSD License.
+1996      v0.1996   Primary source, "Virtual Calculator" by Paul Lutus:
+                       http://www.arachnoid.com/lutusp/calculator.html
+                       Released as Freeware.
+
+_______________ TODO
+
+[ ] - undo last operation would be nice to have.
+[ ] - lack of rounding function (apparently Javascript is deficient here ;-)
+
+======================================================================= -->
+
+
+<style type="text/css">
+input.button {
+ font-family:arial;
+ font-weight:bold;
+ }
+input.enterbutton {
+ font-family:arial;
+ font-weight:bold;
+ color:white;
+ background:navy;
+ }
+input.calcval {
+ font-family:courier;
+ font-weight:bold;
+ font-size:121%;
+ color:navy;
+ background:yellow;
+ text-align:right;
+ }
+    </style>
+
+</head>
+
+<body alink="#ff0000" bgcolor="#fffff0" link="#0080ff" text="#000000" vlink="#8080ff">
+
+<div align="center"><br>
+<font color="#000000"><font size="2">
+<b>RPN Calculator :: Reverse Polish Notation in JavaScript</b></font></font>
+<br></div>
+
+
+<div align="center"><div></div></div>
+<p></p>
+
+    <form method="post" name="calc" action="">
+      <div align="center"><div align="center">
+          <table align="center" bgcolor="black" border="3" cellpadding="10" cellspacing="0">
+            <tbody><tr>
+              <td>
+                <table align="center" bgcolor="gray" border="14" cellpadding="0" cellspacing="0">
+                  <tbody><tr>
+<td style="text-align: center;">t</td>
+<td style="text-align: center;"><div align="center"><input class="calcval" size="32" maxlength="256" name="t" value="0" type="text"></div></td>
+                  </tr>
+                  <tr>
+<td style="text-align: center;">z</td>
+<td style="text-align: center;"><div align="center"><input class="calcval" size="32" maxlength="256" name="z" value="0" type="text"></div></td>
+                  </tr>
+                  <tr>
+<td style="text-align: center;">y</td>
+<td style="text-align: center;"><div align="center"><input class="calcval" size="32" maxlength="256" name="y" value="0" type="text"></div></td>
+                  </tr>
+                  <tr>
+<td style="text-align: center;">x</td>
+<td style="text-align: center;"><div align="center"><input class="calcval" size="32" maxlength="256" name="x" value="0" onfocus="f_manual_entry();" type="text"></div><p></p></td>
+                  </tr>
+
+
+
+                  <tr><td colspan="2"><table border="0" cellpadding="0" cellspacing="5">
+                        <tbody><tr>
+<td style="text-align: center;"><input class="button" value=" y 10^x " onclick="f_eex();" type="button"></td>
+<td style="text-align: center;"><input class="button" value=" Clear " onclick="f_clear();" type="button"></td>
+<td style="text-align: center;"><input class="button" value=" Drop " onclick="f_drop();" type="button"></td>
+<td style="text-align: center;"><input class="button" value=" x ⬄ y " onclick="f_x_swap_y();" type="button"></td>
+<td style="text-align: center;"><input class="button" value=" CHS " onclick="f_chs();" type="button"></td>
+                        </tr>
+                        <tr>
+<td style="text-align: center;"><input class="button" value=" y^x " onclick="f_y_pwr_x();" type="button"></td>
+<td style="text-align: center;"><input class="button" value=" 7 " onclick="f_num(7);" type="button"></td>
+<td style="text-align: center;"><input class="button" value=" 8 " onclick="f_num(8);" type="button"></td>
+<td style="text-align: center;"><input class="button" value=" 9 " onclick="f_num(9);" type="button"></td>
+<td style="text-align: center;"><input class="button" value=" ÷ " onclick="f_div();" type="button"></td>
+                        </tr>
+                        <tr>
+<td style="text-align: center;"><input class="button" value=" y^1/x " onclick="f_y_root_x();" type="button"></td>
+<td style="text-align: center;"><input class="button" value=" 4 " onclick="f_num(4);" type="button"></td>
+<td style="text-align: center;"><input class="button" value=" 5 " onclick="f_num(5);" type="button"></td>
+<td style="text-align: center;"><input class="button" value=" 6 " onclick="f_num(6);" type="button"></td>
+<td style="text-align: center;"><input class="button" value=" 𝑥 " onclick="f_mult();" type="button"></td>
+                        </tr>
+                        <tr>
+<td style="text-align: center;"><input class="button" value=" 1/x " onclick="f_inv_x();" type="button"></td>
+<td style="text-align: center;"><input class="button" value=" 1 " onclick="f_num(1);" type="button"></td>
+<td style="text-align: center;"><input class="button" value=" 2 " onclick="f_num(2);" type="button"></td>
+<td style="text-align: center;"><input class="button" value=" 3 " onclick="f_num(3);" type="button"></td>
+<td style="text-align: center;"><input class="button" value=" − " onclick="f_sub();" type="button"></td>
+                        </tr>
+                        <tr>
+<td style="text-align: center;"><input class="button" value=" % " onclick="f_pct();" type="button"></td>
+<td style="text-align: center;"><input class="button" value=" 0 " onclick="f_num(0);" type="button"></td>
+<td style="text-align: center;"><input class="button" value=" . " onclick="f_num('.');" type="button"></td>
+<td style="text-align: center;"><input class="enterbutton" value=" ENTER " onclick="f_enter();" type="button"></td>
+<td style="text-align: center;"><input class="button" value=" + " onclick="f_add();" type="button"></td>
+                        </tr>
+
+<!-- buttons above are essential, but the buttons below are scientific -->
+<tr>
+<td bgcolor="gray">_______</td>
+<td bgcolor="gray">_______</td>
+<td bgcolor="gray">_______</td>
+<td bgcolor="gray">_______</td>
+<td bgcolor="gray">_______</td>
+</tr>
+<!-- one can elongate the display by lengthening the underscores -->
+
+                        <tr>
+<td style="text-align: center;"><input class="button" value=" sin " onclick="f_sin();" type="button"></td>
+<td style="text-align: center;"><input class="button" value=" cos " onclick="f_cos();" type="button"></td>
+<td style="text-align: center;"><input class="button" value=" tan " onclick="f_tan();" type="button"></td>
+<td style="text-align: center;"><input class="button" value=" sqrt " onclick="f_sqrt();" type="button"></td>
+<td style="text-align: center;"><input class="button" value=" x^2 " onclick="f_x_sqr();" type="button"></td>
+                        </tr>
+                        <tr>
+<td style="text-align: center;"><input class="button" value=" arcsin " onclick="f_asin();" type="button"></td>
+<td style="text-align: center;"><input class="button" value=" arccos " onclick="f_acos();" type="button"></td>
+<td style="text-align: center;"><input class="button" value=" arctan " onclick="f_atan();" type="button"></td>
+<td style="text-align: center;"><input class="button" value=" Ln " onclick="f_ln();" type="button"></td>
+<td style="text-align: center;"><input class="button" value=" e^x " onclick="f_ex();" type="button"></td>
+                        </tr>
+                        <tr>
+<td style="text-align: center;"><input checked="checked" name="degrad" onclick="f_degrad(1);" type="radio">&nbsp;deg</td>
+<td style="text-align: center;"><input name="degrad" onclick="f_degrad(0);" type="radio">&nbsp;rad</td>
+<td style="text-align: center;"><input class="button" value=" x ! " onclick="f_fact();" type="button"></td>
+<td style="text-align: center;"><input class="button" value=" Log " onclick="f_log();" type="button"></td>
+<td style="text-align: center;"><input class="button" value=" 10^x " onclick="f_tenx();" type="button"></td>
+                        </tr>
+                      </tbody></table>
+                    </td>
+                  </tr>
+                </tbody></table>
+              </td>
+            </tr>
+          </tbody></table>
+      </div></div>
+    </form>
+    <div></div>
+
+
+
+<div align="center"><br><br><font color=gray><font size="2">
+Copyright 1996 <a href="http://www.arachnoid.com/administration/index.html" 
+title="Click for biography">Paul Lutus</a>, 
+ © 2009-2015 <a href="https://github.com/rsvp/rpn-calc" 
+title="Code repository at GitHub">Adriano</a>
+</font>
+<p></p>
+</div>
+
+
+
+<script language="JavaScript" type="text/javascript">
+var keynum = 0;
+var degmode = 1; // Default trig entry mode is degrees
+var pi = 3.14159265358979323846; 
+var deg_rad = pi / 180; // Constants to convert between degrees and radians
+var rad_deg = 180 / pi;
+function pre_trig(x) {
+	if(degmode) {
+		x *= deg_rad;
+	}
+	keynum = 0;
+	return(x);
+}
+function post_inv_trig(x) {
+	if(degmode) {
+		x *= rad_deg;
+	}
+	keynum = 0;
+	return(x);
+}
+function f_degrad(x) {
+	degmode = x;
+}
+function f_num(n) {
+	if(keynum) {
+		// this next actually string-concatenates &mdash; a real gotcha
+		document.calc.x.value += n;
+	}
+	else {
+		f_enter();
+		document.calc.x.value = n;
+		keynum = 1;
+	}
+}
+function f_manual_entry() {
+	f_enter();
+	document.calc.x.value = "";
+	keynum = 0;
+}
+function f_clear() {
+	var i;
+	if(confirm("OK to clear all values?")) {
+		with (document.calc) {
+			t.value = 0;
+			z.value = 0;
+			y.value = 0;
+			x.value = 0;
+		}
+		keynum = 0;
+	}
+}
+function f_drop_y() {
+	with (document.calc) {
+		y.value = z.value;
+		z.value = t.value;
+	}
+	keynum = 0;
+}
+function f_drop() {
+	with (document.calc) {
+		x.value = y.value;
+		y.value = z.value;
+		z.value = t.value;
+	}
+	keynum = 0;
+}
+function f_enter() {
+	var i;
+	with(document.calc) {
+		if(keynum == 0) {
+			if(x.value == "") {
+				x.value = 0;
+			}
+			t.value = z.value;
+			z.value = y.value;
+			y.value = x.value;
+		}
+	}
+	keynum = 0;
+}
+function f_add() {
+	with (document.calc) {
+		x.value = parseFloat(y.value) + parseFloat(x.value);
+	}
+	f_drop_y();
+}
+function f_sub() {
+	with (document.calc) {
+		x.value = y.value - x.value;
+	}
+	f_drop_y();
+}
+function f_mult() {
+	with (document.calc) {
+		x.value = y.value * x.value;
+	}
+	f_drop_y();
+}
+function f_div() {
+	with (document.calc) {
+		if(x.value != 0) {
+			x.value = y.value / x.value;
+			f_drop_y();
+		}
+		else {
+			alert("Division by zero.");
+		}
+	}
+}
+function f_inv_x() {
+	with (document.calc) {
+		if(x.value != 0) {
+			x.value = 1 / x.value;
+			keynum = 0;
+		}
+		else {
+			alert("Division by zero.");
+		}
+	}
+}
+function f_x_swap_y () {
+	var q;
+	with(document.calc) {
+		q = parseFloat(x.value);
+		x.value = y.value;
+		y.value = q;
+	}
+	keynum = 0;
+}
+function f_x_sqr() {
+	with(document.calc) {
+		x.value = x.value * x.value;
+	}
+	keynum = 0;
+}
+function f_y_pwr_x() {
+	with(document.calc) {
+		x.value = Math.pow(y.value,x.value);
+		f_drop_y();
+	}
+}
+function f_y_root_x() {
+	with(document.calc) {
+		x.value = Math.pow(y.value,1/x.value);
+		f_drop_y();
+	}
+}
+function f_sqrt() {
+	with(document.calc) {
+		x.value = Math.sqrt(x.value);
+	}
+	keynum = 0;
+}
+function f_chs() {
+	with(document.calc) {
+		x.value = -x.value;
+	}
+	keynum = 0;
+}
+function f_eex() {
+	with(document.calc) {
+		x.value = y.value * Math.pow(10,x.value);
+	}
+	f_drop_y();
+}
+function f_pct() {
+	with(document.calc) {
+		x.value = y.value * (x.value/100);
+	}
+	keynum = 0;
+}
+function f_ln() {
+	with(document.calc) {
+		x.value = Math.log(x.value);
+	}
+	keynum = 0;
+}
+function f_ex() {
+	with(document.calc) {
+		x.value = Math.exp(x.value);
+	}
+	keynum = 0;
+}
+function f_sin() {
+	with(document.calc) {
+		x.value = Math.sin(pre_trig(x.value));
+	}
+	keynum = 0;
+}
+function f_cos() {
+	with(document.calc) {
+		x.value = Math.cos(pre_trig(x.value));
+	}
+	keynum = 0;
+}
+function f_tan() {
+	with(document.calc) {
+		x.value = Math.tan(pre_trig(x.value));
+	}
+	keynum = 0;
+}
+function f_asin() {
+	with(document.calc) {
+		x.value = post_inv_trig(Math.asin(x.value));
+	}
+	keynum = 0;
+}
+function f_acos() {
+	with(document.calc) {
+		x.value = post_inv_trig(Math.acos(x.value));
+	}
+	keynum = 0;
+}
+function f_atan() {
+	with(document.calc) {
+		x.value = post_inv_trig(Math.atan(x.value));
+	}
+	keynum = 0;
+}
+function f_fact() {
+	with(document.calc) {
+		var q = x.value;
+		var v = q;
+		while(--q > 0) {
+			v *= q;
+		}
+		x.value = v;
+	}
+	keynum = 0;
+}
+function f_log() {
+	with(document.calc) {
+		x.value = Math.log(x.value)/Math.LN10;
+	}
+	keynum = 0;
+}
+function f_tenx() {
+	with(document.calc) {
+		x.value = Math.pow(10,x.value);
+	}
+	keynum = 0;
+}
+
+</script>
+
+
+
+</body></html>

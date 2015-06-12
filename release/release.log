@@ -1,4 +1,7 @@
-#  release.log for https://github.com/rsvp/rpn-calc               Date : 2015-06-10
+#  release.log for https://github.com/rsvp/rpn-calc               Date : 2015-06-12
+
+  ::  sha256sum signature on Fri, 12 Jun 2015 12:11:01 -0700   :
+f0925028ba256b5a1617c9fe6876abb72c7265db4ac3284a235d652f99c7e212  rpn-calc-js-v1506.html
 
   ::  sha256sum signature on Wed, 10 Jun 2015 19:15:35 -0700   :
 a6bce7de2bd5b31187b1328e527bed4e81d914cc8e9d9d673ce56498d71c711f  rpn-calc-js-v902.html
